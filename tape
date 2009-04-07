@@ -65,7 +65,7 @@ class ProxyResource(proxy.ReverseProxyResource):
 class TapeResource(static.File):
     def __init__(self, config):
         static.File.__init__(self, config.get('server', 'root'),
-                             defaultType='text/plain'))
+                             defaultType='text/plain')
         
         for lurl, rurl in config.items('proxies'):
             # decode the remote url
