@@ -64,7 +64,8 @@ class ProxyResource(proxy.ReverseProxyResource):
 
 class TapeResource(static.File):
     def __init__(self, config):
-        static.File.__init__(self, config.get('server', 'root'))
+        static.File.__init__(self, config.get('server', 'root'),
+                             defaultType='text/plain'))
         
         for lurl, rurl in config.items('proxies'):
             # decode the remote url
@@ -102,8 +103,8 @@ class TapeResource(static.File):
             parent.putChild(lparts[-1], rproxy)
 
     def createSimilarFile(self, path):
-        """Create similar file hack.
-        This works around a bug in Twisted.
+        """Create similar file for handling children.
+        This is needed because we overloaded the constructor.
         """
         return static.File(path, defaultType='text/plain')
 
