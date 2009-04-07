@@ -1,0 +1,5 @@
+[server]
+port = 8000
+
+[proxies]
+/google = http://www.google.com/
