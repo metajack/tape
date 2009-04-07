@@ -129,6 +129,11 @@ def parse_config_files(options):
     via --config.  Finally the command line options are applied.
     """
     config = RawConfigParser()
+
+    # set defaults
+    config.add_section('server')
+    config.add_section('proxies')
+    config.set('server', 'port', '8273')
     
     files = ['%s/.taperc' % os.environ['HOME'], '.taperc']
     if options.config:
@@ -137,11 +142,6 @@ def parse_config_files(options):
     config.read(files)
 
     # update config with command line options
-    if 'server' not in config.sections():
-        config.add_section('server')
-    if 'proxies' not in config.sections():
-        config.add_section('proxies')
-
     if options.root:
         config.set('server', 'root', options.root)
     else:
