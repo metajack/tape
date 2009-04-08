@@ -78,7 +78,7 @@ class TapeResource(static.File):
                 if len(rparts) < 4 or rparts[3] == '':
                     rpath = ''
                 else:
-                    rpath = '/' + rparts[4]
+                    rpath = '/' + rparts[3]
             except:
                 print "WARNING: Skipping unparseable remote url: %s" % rurl
                 continue
