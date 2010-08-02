@@ -83,7 +83,7 @@ class TapeResource(static.File):
                 print "WARNING: Skipping unparseable remote url: %s" % rurl
                 continue
     
-            rproxy = ProxyResource(rhost, int(rport), rpath)
+            rproxy = proxy.ReverseProxyResource(rhost, int(rport), rpath)
 
             # decode the local url
             lparts = filter(lambda x: x != '', lurl.split('/'))
