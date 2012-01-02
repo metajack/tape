@@ -4,6 +4,7 @@
 
 import os
 import sys
+from datetime import datetime
 from optparse import OptionParser
 from ConfigParser import RawConfigParser
 
@@ -11,7 +12,6 @@ from twisted.application import internet
 from twisted.internet import reactor
 from twisted.python import log
 from twisted.web import server, static, proxy
-from twisted.web.http import _logDateTime
 from twisted.web.error import NoResource
 from twisted.web.util import redirectTo
 
@@ -23,11 +23,10 @@ DEFAULT_PORT = 8273 # t-a-p-e... get it?
 class TapeSite(server.Site):
     def log(self, request):
         """Log a request's result to stdout, in combined log format."""
-        global _logDateTime
         line = '%s - - %s "%s" %d %s "%s" "%s"\n' % (
             request.getClientIP(),
             # request.getUser() or "-", # the remote user is almost never important
-            _logDateTime,
+            datetime.now(),
             '%s %s %s' % (self._escape(request.method),
                           self._escape(request.uri),
                           self._escape(request.clientproto)),
