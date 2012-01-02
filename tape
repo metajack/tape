@@ -43,7 +43,7 @@ class DummyResource(static.Data):
         static.Data.__init__(self, 'nothing to see here', 'text/plain')
 
     def getChild(self, path, request):
-        if path == '': 
+        if path == '':
             # dummy is the same as dummy/
             return self
         return static.Data.getChild(self, path, request)
@@ -65,7 +65,7 @@ class TapeResource(static.File):
     def __init__(self, config):
         static.File.__init__(self, config.get('server', 'root'),
                              defaultType='text/plain')
-        
+
         for lurl, rurl in config.items('proxies'):
             # decode the remote url
             try:
@@ -81,7 +81,7 @@ class TapeResource(static.File):
             except:
                 print "WARNING: Skipping unparseable remote url: %s" % rurl
                 continue
-    
+
             rproxy = proxy.ReverseProxyResource(rhost, int(rport), rpath)
 
             # decode the local url
@@ -134,7 +134,7 @@ def parse_config_files(options):
     config.add_section('server')
     config.add_section('proxies')
     config.set('server', 'port', '8273')
-    
+
     files = ['%s/.taperc' % os.environ['HOME'], '.taperc']
     if options.config:
         files.append(options.config)
