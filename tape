@@ -129,7 +129,8 @@ def parse_config_files(options):
     via --config.  Finally the command line options are applied.
     """
     config = RawConfigParser()
-
+    config.optionxform = str
+    
     # set defaults
     config.add_section('server')
     config.add_section('proxies')
