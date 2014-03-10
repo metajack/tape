@@ -4,6 +4,7 @@
 
 import os
 import sys
+import re
 from datetime import datetime
 from optparse import OptionParser
 from ConfigParser import RawConfigParser
@@ -27,13 +28,13 @@ class TapeSite(server.Site):
             request.getClientIP(),
             # request.getUser() or "-", # the remote user is almost never important
             datetime.now(),
-            '%s %s %s' % (self._escape(request.method),
-                          self._escape(request.uri),
-                          self._escape(request.clientproto)),
+            '%s %s %s' % (re.escape(request.method),
+                          re.escape(request.uri),
+                          re.escape(request.clientproto)),
             request.code,
             request.sentLength or "-",
-            self._escape(request.getHeader("referer") or "-"),
-            self._escape(request.getHeader("user-agent") or "-"))
+            re.escape(request.getHeader("referer") or "-"),
+            re.escape(request.getHeader("user-agent") or "-"))
         sys.stdout.write(line)
 
 
