@@ -136,6 +136,7 @@ def parse_config_files(options):
     config.add_section('server')
     config.add_section('proxies')
     config.set('server', 'port', '8273')
+    config.set('server', 'root', '.')
 
     files = ['%s/.taperc' % os.environ['HOME'], '.taperc']
     if options.config:
@@ -146,8 +147,6 @@ def parse_config_files(options):
     # update config with command line options
     if options.root:
         config.set('server', 'root', options.root)
-    else:
-        config.set('server', 'root', '.')
     if options.port:
         config.set('server', 'port', options.port)
     if options.proxies:
